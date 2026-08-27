@@ -1,4 +1,8 @@
-const BASE = import.meta.env.VITE_API_BASE || '/api/v1'
+const BASE =
+  import.meta.env.VITE_API_BASE ||
+  (typeof location !== 'undefined' && location.hostname.endsWith('.vercel.app')
+    ? 'https://netra-backend-ym1u.onrender.com/api/v1'
+    : '/api/v1')
 
 export type Priority = 'P1' | 'P2' | 'P3' | 'P4' | 'UNRATED'
 
