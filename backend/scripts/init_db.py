@@ -19,11 +19,17 @@ def init() -> None:
             ]
             for username, password, role, display in demo:
                 db.add(User(username=username, password_hash=hash_password(password), role=role, display_name=display))
-        db.add_all([
-            ModelVersion(name="llm-extraction", version="llm-extract-v1", description="LLM extraction prompt contract v1", active=True),
-            ModelVersion(name="rules-extraction", version="rules-v1", description="Deterministic multilingual rules", active=True),
-            RuleVersion(name="priority", version="priority-v1.0", description="Rescue Priority Score draft weights", active=True),
-        ])
+        def ensure_model(name, version, description):
+            if not db.query(ModelVersion).filter_by(name=name, version=version).first():
+                db.add(ModelVersion(name=name, version=version, description=description, active=True))
+
+        def ensure_rule(name, version, description):
+            if not db.query(RuleVersion).filter_by(name=name, version=version).first():
+                db.add(RuleVersion(name=name, version=version, description=description, active=True))
+
+        ensure_model("llm-extraction", "llm-extract-v1", "LLM extraction prompt contract v1")
+        ensure_model("rules-extraction", "rules-v1", "Deterministic multilingual rules")
+        ensure_rule("priority", "priority-v1.0", "Rescue Priority Score draft weights")
         db.commit()
         print("DB initialized + demo users seeded.")
     finally:
