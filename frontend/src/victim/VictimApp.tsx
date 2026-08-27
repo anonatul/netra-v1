@@ -52,17 +52,20 @@ export default function VictimApp() {
     if (isProjector) QRCode.toDataURL(window.location.href, { width: 200, margin: 1 }).then(setQr).catch(() => {})
   }, [])
 
-  const requestGps = () => {
+  const startWatch = () => {
     if (!('geolocation' in navigator)) return setGpsDenied(true)
-    navigator.geolocation.getCurrentPosition(
-      (p) => setGps({ lat: p.coords.latitude, lon: p.coords.longitude, acc: Math.round(p.coords.accuracy) }),
+    navigator.geolocation.watchPosition(
+      (p) => {
+        setGps({ lat: p.coords.latitude, lon: p.coords.longitude, acc: Math.round(p.coords.accuracy) })
+        setGpsDenied(false)
+      },
       () => setGpsDenied(true),
       { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 },
     )
   }
 
   useEffect(() => {
-    requestGps()
+    startWatch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -151,9 +154,14 @@ export default function VictimApp() {
               <span className="h-1.5 w-1.5 animate-pulse bg-cyan-400" /> locating…
             </span>
           )}
-          <button onClick={requestGps} className="text-slate-500 underline-offset-2 hover:underline">
+          <button onClick={startWatch} className="text-slate-500 underline-offset-2 hover:underline">
             {gps ? 're-locate' : 'allow GPS'}
           </button>
+          {gps && (
+            <span className="ml-2 font-mono text-[10px] text-slate-500">
+              {gps.lat.toFixed(5)}, {gps.lon.toFixed(5)} ±{gps.acc}m
+            </span>
+          )}
         </div>
 
         <div className="mt-6">
