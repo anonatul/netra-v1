@@ -1,8 +1,8 @@
 {
   "buildCommand": "cd frontend && npm install && npm run build",
   "outputDirectory": "frontend/dist",
-  "rewrites": [{ "source": "/api/:path*", "destination": "https://<YOUR-BACKEND-ON-RENDER>.onrender.com/api/:path*" }],
+  "rewrites": [{ "source": "/api/:path*", "destination": "https://netra-backend-ym1u.onrender.com/api/:path*" }],
   "env": {
-    "VITE_API_BASE": "https://<YOUR-BACKEND-ON-RENDER>.onrender.com/api/v1"
+    "VITE_API_BASE": "https://netra-backend-ym1u.onrender.com/api/v1"
   }
 }
