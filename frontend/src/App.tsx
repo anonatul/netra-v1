@@ -10,8 +10,8 @@ import SituationStrip from './components/SituationStrip'
 import SignalStream from './components/SignalStream'
 import ToastStack, { diffToasts, type Toast } from './components/ToastStack'
 
-const SIM_PATH = '/sim'
-const isSimPath = () => typeof window !== 'undefined' && window.location.pathname === SIM_PATH
+const isSimPath = () =>
+  typeof window !== 'undefined' && window.location.hash.replace(/^#\/?/, '') === 'sim'
 
 function Login({ onLogin }: { onLogin: (role: string, name: string) => void }) {
   const [username, setUsername] = useState('commander')
@@ -154,10 +154,10 @@ export default function App() {
           <div className="mb-4 flex items-baseline justify-between">
             <span className="font-display text-lg font-bold tracking-[0.3em] text-cyan-400">NETRA</span>
             <div className="flex items-center gap-3 font-mono text-[10px]">
-              <a href="/logs" className="text-slate-500 hover:text-emerald-300">
+              <a href="#/logs" className="text-slate-500 hover:text-emerald-300">
                 system log →
               </a>
-              <a href="/" className="text-slate-500 hover:text-slate-300">
+              <a href="#/" className="text-slate-500 hover:text-slate-300">
                 ← open dashboard
               </a>
             </div>

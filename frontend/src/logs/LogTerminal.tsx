@@ -146,7 +146,7 @@ export default function LogTerminal() {
           <button onClick={signOut} className="text-[10px] tracking-widest text-slate-500 hover:text-amber-300">
             ↺ re-auth
           </button>
-          <a href="/" className="text-[10px] tracking-widest text-slate-500 hover:text-emerald-300">
+          <a href="#/" className="text-[10px] tracking-widest text-slate-500 hover:text-emerald-300">
             ← dashboard
           </a>
         </div>
