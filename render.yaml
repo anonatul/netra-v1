@@ -1,7 +1,5 @@
 databases:
   - name: netra-db
-    databaseName: netra
-    user: netra
     plan: free
 
 services:
@@ -13,6 +11,7 @@ services:
     buildCommand: pip install -r requirements.txt
     releaseCommand: python -m scripts.init_db
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /healthz
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -24,7 +23,5 @@ services:
         value: "https://ai.tcetcercd.in/v1"
       - key: AI_GATEWAY_MODEL
         value: "/home/user1/models/Qwen3.6-35B-A3B-NVFP4-Fast"
-      - key: CORS_ORIGINS
-        value: "*"
       - key: JWT_SECRET
         generateValue: true
