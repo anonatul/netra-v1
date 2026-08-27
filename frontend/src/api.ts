@@ -1,4 +1,4 @@
-const BASE =
+export const BASE =
   import.meta.env.VITE_API_BASE ||
   (typeof location !== 'undefined' && location.hostname.endsWith('.vercel.app')
     ? 'https://netra-backend-ym1u.onrender.com/api/v1'

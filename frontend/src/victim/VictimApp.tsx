@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import QRCode from 'qrcode'
+import { BASE } from '../api'
 
 const HOTSPOTS = [
   { id: 'Z1', lat: 19.076, lon: 72.8777 },
@@ -37,7 +38,7 @@ export default function VictimApp() {
   const [hotspot] = useState(() => HOTSPOTS[Math.floor(Math.random() * HOTSPOTS.length)])
 
   useEffect(() => {
-    fetch('/api/v1/auth/login', {
+    fetch(`${BASE}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: 'citizen-sim', password: 'citizen-sim123' }),
@@ -75,7 +76,7 @@ export default function VictimApp() {
     setError(null)
     const acc = gps ? Math.max(20, gps.acc) : Math.round(120 + Math.random() * 130)
     try {
-      const res = await fetch('/api/v1/events', {
+      const res = await fetch(`${BASE}/events`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({

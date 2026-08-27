@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { BASE } from '../api'
 
 type AuditEntry = {
   id: number
@@ -47,7 +48,7 @@ export default function LogTerminal() {
     setBusy(true)
     setErr(null)
     try {
-      const res = await fetch('/api/v1/auth/login', {
+      const res = await fetch(`${BASE}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -74,7 +75,7 @@ export default function LogTerminal() {
     if (!token) return
     const poll = async () => {
       try {
-        const res = await fetch('/api/v1/audit?limit=40', {
+        const res = await fetch(`${BASE}/audit?limit=40`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         if (res.status === 403) {
