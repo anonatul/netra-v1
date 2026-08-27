@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: netra-postgres
+    environment:
+      POSTGRES_USER: netra
+      POSTGRES_PASSWORD: netra
+      POSTGRES_DB: netra
+    ports:
+      - "5433:5432"
+    volumes:
+      - netra_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U netra -d netra"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  netra_pgdata:

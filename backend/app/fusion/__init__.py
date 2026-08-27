@@ -1,0 +1,1 @@
+"""Fusion package — evidence-to-incident pipeline."""

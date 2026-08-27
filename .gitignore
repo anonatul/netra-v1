@@ -1,0 +1,33 @@
+# secrets — never commit
+.env
+backend/.env
+*.pem
+*.key
+
+# ai gateway guide contains the raw API key
+docs/ai-gateway.md
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+backend/.venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# node
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# db / data
+*.sqlite3
+*.db
+data/
+
+# os / editor
+.DS_Store
+.idea/
+.vscode/
